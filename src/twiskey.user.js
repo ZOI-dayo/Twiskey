@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twiskey
 // @namespace    https://github.com/ZOI-dayo
-// @version      0.1
+// @version      0.2
 // @description  Twitterの投稿画面にMisskeyへの同時投稿機能を追加します。
 // @author       ZOI_dayo
 // @license      MIT
@@ -40,7 +40,7 @@
     toolbar.children[0].after(misskey_button)
 
     GM_addElement(misskey_button , 'img', {
-      src: 'https://s3.arkjp.net/misskey/webpublic-0c66b1ca-b8c0-4eaa-9827-47674f4a1580.png',
+      src: 'https://raw.githubusercontent.com/misskey-dev/assets/main/icon.png',
       height: '100%'
     });
 
