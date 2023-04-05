@@ -53,10 +53,11 @@
         api_key_box.style.width = "300px"
         // api_key_box.style.height = "50px"
         api_key_box.style.position = "absolute"
-        api_key_box.style.top = "25px"
+        api_key_box.style.bottom = "calc(100% + 10px)"
         api_key_box.style.padding = "5px"
       }
       misskey_button.appendChild(api_key_box);
+      misskey_button.parentNode.parentNode.parentNode.style.zIndex = "9999"
 
       const misskey_server_message = document.createElement("span")
       {
