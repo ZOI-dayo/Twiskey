@@ -49,12 +49,15 @@
 
       const api_key_box = document.createElement("div");
       {
-        api_key_box.style.backgroundColor = "white"
+        api_key_box.style.backgroundColor = "rgb(25, 35, 32)"
         api_key_box.style.width = "300px"
         // api_key_box.style.height = "50px"
         api_key_box.style.position = "absolute"
         api_key_box.style.bottom = "calc(100% + 10px)"
-        api_key_box.style.padding = "5px"
+        api_key_box.style.padding = "10px"
+        api_key_box.style.borderRadius = "10px"
+        api_key_box.style.color = "white"
+        // api_key_box.style.filter = "drop-shadow(0 0 5px rgb(60, 80, 70))"
       }
       misskey_button.appendChild(api_key_box);
       misskey_button.parentNode.parentNode.parentNode.style.zIndex = "9999"
@@ -71,6 +74,9 @@
         misskey_server_input.style.margin = "0 auto"
         misskey_server_input.setAttribute("type", "text");
         misskey_server_input.value = GM_getValue(`misskey_server_${twitter_username}`, null)
+        misskey_server_input.style.border = "none"
+        misskey_server_input.style.backgroundColor = "rgb(125, 175, 160)"
+        misskey_server_input.placeholder = "misskey.io"
       }
       api_key_box.appendChild(misskey_server_input)
 
@@ -87,6 +93,9 @@
         misskey_token_input.style.margin = "0 auto"
         misskey_token_input.setAttribute("type", "text");
         misskey_token_input.value = GM_getValue(`misskey_api_key_${twitter_username}`, null)
+        misskey_token_input.style.border = "none"
+        misskey_token_input.style.backgroundColor = "rgb(125, 175, 160)"
+        misskey_token_input.placeholder = "*******"
       }
       api_key_box.appendChild(misskey_token_input)
 
@@ -98,6 +107,12 @@
           GM_setValue(`misskey_api_key_${twitter_username}`, misskey_token_input.value == "" ? null : misskey_token_input.value)
           misskey_button.querySelector("div").style.display = "none"
         }
+        misskey_data_submit_button.style.border = "none"
+        misskey_data_submit_button.style.backgroundColor = "rgb(125, 175, 160)"
+        misskey_data_submit_button.style.display = "block"
+        misskey_data_submit_button.style.margin = "10px auto 0"
+        misskey_data_submit_button.style.padding = "5px 10px"
+        misskey_data_submit_button.style.borderRadius = "5px"
       }
       api_key_box.appendChild(misskey_data_submit_button)
       api_key_box.style.display = "none"
