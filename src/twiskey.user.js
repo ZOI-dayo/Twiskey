@@ -132,7 +132,7 @@
       }
     })
 
-    Array.from(toolbar.children)/*.slice(-1)*/[0].addEventListener('click', async e => {
+    Array.from(toolbar.children).slice(-1)[0].addEventListener('click', async e => {
       if(!misskey_enabled) return;
 
 
@@ -152,7 +152,6 @@
 
       const content = document.querySelector('.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr').innerText
       if(content == "") return;
-      console.log("aaa")
 
       const media = Array.from(document.querySelectorAll('div[data-testid="attachments"] > div:nth-child(2) > div > div:nth-child(2) > div > div > div > div > div > img')).map(e => e.src)
 
@@ -207,7 +206,7 @@
         }),
         onload: function(response) {
           console.log(response.responseText);
-          }
+        }
       });
     });
     // clearInterval(interval)
