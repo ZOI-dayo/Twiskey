@@ -13,6 +13,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_deleteValue
+// @require https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js
 // ==/UserScript==
 
 (function() {
@@ -131,7 +132,7 @@
       }
     })
 
-    Array.from(toolbar.children).slice(-1)[0].addEventListener('click', e => {
+    Array.from(toolbar.children)/*.slice(-1)*/[0].addEventListener('click', async e => {
       if(!misskey_enabled) return;
 
 
@@ -151,6 +152,46 @@
 
       const content = document.querySelector('.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr').innerText
       if(content == "") return;
+      console.log("aaa")
+
+      const media = Array.from(document.querySelectorAll('div[data-testid="attachments"] > div:nth-child(2) > div > div:nth-child(2) > div > div > div > div > div > img')).map(e => e.src)
+
+      function urlToBlob(url) {
+        return new Promise((resolve, reject) => {
+          GM_xmlhttpRequest({
+            method: "GET",
+            url: url,
+            onload: function(response) {
+              resolve(response.response)
+            },
+            onerror: function(error) {
+              reject(error);
+            },
+            responseType: "blob"
+          });
+        });
+      }
+      let media_ids = []
+      for(let m of media) {
+        console.log(m);
+        var params = new FormData();
+        params.append("i", misskey_api_key);
+        const file = await urlToBlob(m)
+        params.append("file", file);
+
+        const misskey_image_req = await new Promise((resolve, _) => {
+          GM_xmlhttpRequest({
+            method: "POST",
+            url: `https://${misskey_server}/api/drive/files/create`,
+            data: params,
+            onload: function(response) {
+              media_ids.push(JSON.parse(response.responseText)["id"])
+              console.log(response.responseText);
+              resolve();
+            }
+          });
+        });
+      }
 
       console.log(misskey_api_key)
       GM_xmlhttpRequest({
@@ -162,10 +203,11 @@
         data: JSON.stringify({
           "i": misskey_api_key,
           "text": document.querySelector('div[data-testid="tweetTextarea_0"]').innerText,
+          "fileIds": media_ids.length > 0 ? media_ids : undefined,
         }),
         onload: function(response) {
           console.log(response.responseText);
-        }
+          }
       });
     });
     // clearInterval(interval)
