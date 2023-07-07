@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twiskey
 // @namespace    https://github.com/ZOI-dayo
-// @version      1.0
+// @version      1.1
 // @description  Twitterの投稿画面にMisskeyへの同時投稿機能を追加します。
 // @author       ZOI_dayo
 // @license      MIT
@@ -153,6 +153,8 @@
       const content = document.querySelector('.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr').innerText
       if(content == "") return;
 
+      const text = document.querySelector('div[data-testid="tweetTextarea_0"]').innerText
+
       const media = Array.from(document.querySelectorAll('div[data-testid="attachments"] > div:nth-child(2) > div > div:nth-child(2) > div > div > div > div > div > img')).map(e => e.src)
 
       function urlToBlob(url) {
@@ -201,7 +203,7 @@
         },
         data: JSON.stringify({
           "i": misskey_api_key,
-          "text": document.querySelector('div[data-testid="tweetTextarea_0"]').innerText,
+          "text": text,
           "fileIds": media_ids.length > 0 ? media_ids : undefined,
         }),
         onload: function(response) {
