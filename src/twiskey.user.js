@@ -119,6 +119,13 @@
       api_key_box.style.display = "none"
     }
 
+    misskey_button.addEventListener('contextmenu', e => {
+        e.preventDefault()
+
+        const api_key_box = misskey_button.querySelector("div")
+        api_key_box.style.display = ""
+    })
+
     misskey_button.querySelector("img").addEventListener('click', () => {
       misskey_enabled = !misskey_enabled;
       misskey_button.style.filter = `grayscale(${misskey_enabled ? "0%" : "100%"}) opacity(${misskey_enabled ? "100%" : "25%"})`
