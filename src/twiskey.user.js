@@ -97,6 +97,7 @@
         misskey_token_input.style.border = "none"
         misskey_token_input.style.backgroundColor = "rgb(125, 175, 160)"
         misskey_token_input.placeholder = "*******"
+        misskey_token_input.type = "password"
       }
       api_key_box.appendChild(misskey_token_input)
 
