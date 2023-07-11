@@ -97,6 +97,7 @@
         misskey_token_input.style.border = "none"
         misskey_token_input.style.backgroundColor = "rgb(125, 175, 160)"
         misskey_token_input.placeholder = "*******"
+        misskey_token_input.type = "password"
       }
       api_key_box.appendChild(misskey_token_input)
 
@@ -118,6 +119,13 @@
       api_key_box.appendChild(misskey_data_submit_button)
       api_key_box.style.display = "none"
     }
+
+    misskey_button.addEventListener('contextmenu', e => {
+        e.preventDefault()
+
+        const api_key_box = misskey_button.querySelector("div")
+        api_key_box.style.display = ""
+    })
 
     misskey_button.querySelector("img").addEventListener('click', () => {
       misskey_enabled = !misskey_enabled;
