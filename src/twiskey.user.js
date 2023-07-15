@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twiskey
 // @namespace    https://github.com/ZOI-dayo
-// @version      1.1
+// @version      1.2
 // @description  Twitterの投稿画面にMisskeyへの同時投稿機能を追加します。
 // @author       ZOI_dayo
 // @license      MIT
