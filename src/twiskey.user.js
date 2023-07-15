@@ -36,7 +36,6 @@
     misskey_button.style.position = "relative";
 
     let misskey_enabled = false;
-    misskey_button.style.filter = "grayscale(100%) opacity(25%)"
 
     toolbar.children[0].after(misskey_button)
 
@@ -44,6 +43,7 @@
       src: 'https://raw.githubusercontent.com/misskey-dev/assets/main/icon.png',
       height: '100%'
     });
+    misskey_button.querySelector("img").style.filter = "grayscale(100%) opacity(25%)"
 
     {
       const twitter_username = document.querySelector('a[data-testid="AppTabBar_Profile_Link"]').href.substr(20)
@@ -97,6 +97,7 @@
         misskey_token_input.style.border = "none"
         misskey_token_input.style.backgroundColor = "rgb(125, 175, 160)"
         misskey_token_input.placeholder = "*******"
+        misskey_token_input.type = "password"
       }
       api_key_box.appendChild(misskey_token_input)
 
@@ -119,9 +120,16 @@
       api_key_box.style.display = "none"
     }
 
+    misskey_button.addEventListener('contextmenu', e => {
+        e.preventDefault()
+
+        const api_key_box = misskey_button.querySelector("div")
+        api_key_box.style.display = ""
+    })
+
     misskey_button.querySelector("img").addEventListener('click', () => {
       misskey_enabled = !misskey_enabled;
-      misskey_button.style.filter = `grayscale(${misskey_enabled ? "0%" : "100%"}) opacity(${misskey_enabled ? "100%" : "25%"})`
+      misskey_button.querySelector("img").style.filter = `grayscale(${misskey_enabled ? "0%" : "100%"}) opacity(${misskey_enabled ? "100%" : "25%"})`
       if(misskey_enabled) {
         const twitter_username = document.querySelector('a[data-testid="AppTabBar_Profile_Link"]').href.substr(20)
         if(GM_getValue(`misskey_server_${twitter_username}`, null) == null || GM_getValue(`misskey_api_key_${twitter_username}`, null) == null) {
